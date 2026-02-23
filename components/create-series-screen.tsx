@@ -120,7 +120,7 @@ export function CreateSeriesScreen() {
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col px-5 pb-8">
+      <div className="flex flex-1 flex-col px-5 pb-28">
         {/* Series name */}
         <section className="pt-4 pb-6">
           <label

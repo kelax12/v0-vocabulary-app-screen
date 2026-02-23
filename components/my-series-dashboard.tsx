@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation"
 import { DashboardHeader } from "@/components/dashboard-header"
 import { SearchBar } from "@/components/search-bar"
 import { SeriesCard } from "@/components/series-card"
-import { FloatingAddButton } from "@/components/floating-add-button"
 import {
   mockAllSeries,
   getSeriesProgress,
@@ -46,17 +45,13 @@ export function MySeriesDashboard() {
     console.log("Edit series", id)
   }, [])
 
-  const handleAddSeries = useCallback(() => {
-    router.push("/create")
-  }, [router])
-
   return (
     <div className="relative mx-auto flex min-h-dvh max-w-md flex-col bg-background shadow-[0_0_40px_rgba(0,0,0,0.06)]">
       <DashboardHeader globalProgress={globalProgress} />
 
       <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
-      <main className="flex-1 px-5 pb-24">
+      <main className="flex-1 px-5 pb-28">
         <div className="flex flex-col gap-3">
           {filteredSeries.map((s) => (
             <SeriesCard
@@ -84,8 +79,6 @@ export function MySeriesDashboard() {
           )}
         </div>
       </main>
-
-      <FloatingAddButton onClick={handleAddSeries} />
     </div>
   )
 }

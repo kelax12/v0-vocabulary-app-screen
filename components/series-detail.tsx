@@ -95,7 +95,7 @@ export function SeriesDetail({ seriesId }: SeriesDetailProps) {
         />
       </main>
 
-      <div className="h-8" />
+      <div className="h-24" />
     </div>
   )
 }

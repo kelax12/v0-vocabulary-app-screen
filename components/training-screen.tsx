@@ -7,7 +7,7 @@ import { WordDisplay } from "@/components/word-display"
 import { TrainingStatsDisplay } from "@/components/training-stats"
 import { AnswerInput } from "@/components/answer-input"
 import { ActionButtons } from "@/components/action-buttons"
-import { ArrowRightLeft } from "lucide-react"
+import { ArrowRightLeft, BookOpen } from "lucide-react"
 import { getSeriesById, mockAllSeries } from "@/lib/data"
 import type { TrainingStats, TrainingResult } from "@/lib/data"
 
@@ -163,6 +163,13 @@ export function TrainingScreen() {
               className="flex w-full items-center justify-center gap-2.5 rounded-2xl border border-primary bg-background px-6 py-4 text-[15px] font-semibold tracking-wide text-primary transition-all hover:bg-secondary active:scale-[0.98]"
             >
               Retour a la serie
+            </button>
+            <button
+              onClick={handleChangeSeries}
+              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border bg-background px-6 py-3.5 text-[14px] font-semibold tracking-wide text-foreground transition-all hover:bg-secondary active:scale-[0.98]"
+            >
+              <BookOpen className="h-4 w-4" />
+              Mes series
             </button>
           </div>
         </div>

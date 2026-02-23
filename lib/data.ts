@@ -11,6 +11,14 @@ export interface VocabSeries {
   words: VocabWord[]
 }
 
+export interface TrainingStats {
+  correct: number
+  incorrect: number
+  skipped: number
+}
+
+export type TrainingResult = "correct" | "incorrect" | "skipped" | null
+
 export const mockSeries: VocabSeries = {
   id: 1,
   name: "Vetements",

@@ -1,14 +1,17 @@
 "use client"
 
 import { useState, useCallback, useMemo } from "react"
+import { useRouter } from "next/navigation"
 import { SeriesHeader } from "@/components/series-header"
 import { ChangeSeriesButton } from "@/components/change-series-button"
 import { ProgressBar } from "@/components/progress-bar"
 import { VocabList } from "@/components/vocab-list"
 import { mockSeries } from "@/lib/data"
 import type { VocabWord } from "@/lib/data"
+import { Play } from "lucide-react"
 
 export function SeriesDetail() {
+  const router = useRouter()
   const [words, setWords] = useState<VocabWord[]>(mockSeries.words)
   const favoriteCount = useMemo(() => words.filter((w) => w.isFavorite).length, [words])
 
@@ -44,6 +47,18 @@ export function SeriesDetail() {
       />
 
       <ChangeSeriesButton onClick={handleChangeSeries} />
+
+      <div className="px-5 pb-2">
+        <button
+          onClick={() => router.push("/train")}
+          className="flex w-full items-center justify-center gap-2.5 rounded-2xl bg-primary px-6 py-4 text-primary-foreground shadow-[0_2px_12px_rgba(29,60,255,0.25)] transition-all hover:bg-accent active:scale-[0.98]"
+        >
+          <Play className="h-[18px] w-[18px]" fill="currentColor" />
+          <span className="text-[15px] font-semibold tracking-wide">
+            {"Commencer l'entrainement"}
+          </span>
+        </button>
+      </div>
 
       <ProgressBar current={favoriteCount} total={words.length} />
 

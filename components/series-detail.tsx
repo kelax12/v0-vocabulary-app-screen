@@ -75,7 +75,7 @@ export function SeriesDetail({ seriesId }: SeriesDetailProps) {
       {/* Start training button */}
       <div className="px-5 pb-2">
         <button
-          onClick={() => router.push(`/train?series=${seriesId}`)}
+          onClick={() => router.push(`/train/session?series=${seriesId}`)}
           className="flex w-full items-center justify-center gap-2.5 rounded-2xl bg-primary px-6 py-4 text-primary-foreground shadow-[0_2px_12px_rgba(29,60,255,0.25)] transition-all hover:bg-accent active:scale-[0.98]"
         >
           <Play className="h-[18px] w-[18px]" fill="currentColor" />

@@ -1,10 +1,5 @@
-import { Suspense } from "react"
-import { TrainingScreen } from "@/components/training-screen"
+import { TrainSeriesPicker } from "@/components/train-series-picker"
 
 export default function TrainPage() {
-  return (
-    <Suspense>
-      <TrainingScreen />
-    </Suspense>
-  )
+  return <TrainSeriesPicker />
 }

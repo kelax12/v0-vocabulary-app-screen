@@ -7,7 +7,7 @@ import { WordDisplay } from "@/components/word-display"
 import { TrainingStatsDisplay } from "@/components/training-stats"
 import { AnswerInput } from "@/components/answer-input"
 import { ActionButtons } from "@/components/action-buttons"
-import { ArrowRightLeft, BookOpen } from "lucide-react"
+import { ArrowRightLeft } from "lucide-react"
 import { getSeriesById, mockAllSeries, MAX_SCORE } from "@/lib/data"
 import type { TrainingStats, TrainingResult, VocabWord } from "@/lib/data"
 
@@ -110,7 +110,7 @@ export function TrainingScreen() {
   }, [router, seriesId])
 
   const handleChangeSeries = useCallback(() => {
-    router.push("/")
+    router.push("/train")
   }, [router])
 
   const handleRestart = useCallback(() => {
@@ -184,8 +184,8 @@ export function TrainingScreen() {
               onClick={handleChangeSeries}
               className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border bg-background px-6 py-3.5 text-[14px] font-semibold tracking-wide text-foreground transition-all hover:bg-secondary active:scale-[0.98]"
             >
-              <BookOpen className="h-4 w-4" />
-              Mes series
+              <ArrowRightLeft className="h-4 w-4" />
+              Changer de serie
             </button>
           </div>
         </div>

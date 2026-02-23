@@ -2,11 +2,13 @@
 
 import { Star } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { MAX_SCORE } from "@/lib/data"
 
 interface VocabCardProps {
   index: number
   source: string
   translation: string
+  score: number
   isFavorite: boolean
   onToggleFavorite: () => void
   onTap: () => void
@@ -16,6 +18,7 @@ export function VocabCard({
   index,
   source,
   translation,
+  score,
   isFavorite,
   onToggleFavorite,
   onTap,
@@ -50,6 +53,20 @@ export function VocabCard({
           {translation}
         </span>
       </div>
+
+      {/* Score badge */}
+      <span
+        className={cn(
+          "shrink-0 rounded-md px-1.5 py-0.5 text-[11px] font-semibold tabular-nums leading-tight",
+          score >= 8
+            ? "bg-emerald-50 text-emerald-600"
+            : score >= 4
+              ? "bg-amber-50 text-amber-600"
+              : "bg-red-50 text-red-500"
+        )}
+      >
+        {score}/{MAX_SCORE}
+      </span>
 
       {/* Favorite star */}
       <button

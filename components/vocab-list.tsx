@@ -23,6 +23,7 @@ export function VocabList({ words, onToggleFavorite, onTapWord }: VocabListProps
           index={index}
           source={word.source}
           translation={word.translation}
+          score={word.score}
           isFavorite={word.isFavorite}
           onToggleFavorite={() => onToggleFavorite(word.id)}
           onTap={() => onTapWord(word.id)}

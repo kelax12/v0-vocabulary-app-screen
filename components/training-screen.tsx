@@ -8,8 +8,8 @@ import { TrainingStatsDisplay } from "@/components/training-stats"
 import { AnswerInput } from "@/components/answer-input"
 import { ActionButtons } from "@/components/action-buttons"
 import { ArrowRightLeft, BookOpen } from "lucide-react"
-import { getSeriesById, mockAllSeries } from "@/lib/data"
-import type { TrainingStats, TrainingResult } from "@/lib/data"
+import { getSeriesById, mockAllSeries, MAX_SCORE } from "@/lib/data"
+import type { TrainingStats, TrainingResult, VocabWord } from "@/lib/data"
 
 function shuffleArray<T>(array: T[]): T[] {
   const shuffled = [...array]
@@ -28,7 +28,7 @@ export function TrainingScreen() {
   const seriesId = Number(searchParams.get("series") ?? mockAllSeries[0].id)
   const seriesData = getSeriesById(seriesId) ?? mockAllSeries[0]
 
-  const [words] = useState(() => shuffleArray(seriesData.words))
+  const [words, setWords] = useState<VocabWord[]>(() => shuffleArray(seriesData.words))
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answer, setAnswer] = useState("")
   const [result, setResult] = useState<TrainingResult>(null)
@@ -55,6 +55,19 @@ export function TrainingScreen() {
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
 
+  const updateWordScore = useCallback(
+    (wordId: number, delta: number) => {
+      setWords((prev) =>
+        prev.map((w) =>
+          w.id === wordId
+            ? { ...w, score: Math.max(0, Math.min(MAX_SCORE, w.score + delta)) }
+            : w
+        )
+      )
+    },
+    []
+  )
+
   const moveToNext = useCallback(() => {
     if (currentIndex + 1 >= words.length) {
       setIsFinished(true)
@@ -74,16 +87,19 @@ export function TrainingScreen() {
     if (isCorrect) {
       setResult("correct")
       setStats((prev) => ({ ...prev, correct: prev.correct + 1 }))
+      updateWordScore(currentWord.id, 1)
     } else {
       setResult("incorrect")
       setStats((prev) => ({ ...prev, incorrect: prev.incorrect + 1 }))
+      updateWordScore(currentWord.id, -1)
     }
-  }, [answer, currentWord])
+  }, [answer, currentWord, updateWordScore])
 
   const handleSkip = useCallback(() => {
     setResult("skipped")
     setStats((prev) => ({ ...prev, skipped: prev.skipped + 1 }))
-  }, [])
+    updateWordScore(currentWord.id, -1)
+  }, [currentWord, updateWordScore])
 
   const handleNext = useCallback(() => {
     moveToNext()

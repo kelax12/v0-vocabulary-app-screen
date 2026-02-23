@@ -1,5 +1,5 @@
-import { SeriesDetail } from "@/components/series-detail"
+import { MySeriesDashboard } from "@/components/my-series-dashboard"
 
 export default function Page() {
-  return <SeriesDetail />
+  return <MySeriesDashboard />
 }

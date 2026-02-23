@@ -1,14 +1,14 @@
 "use client"
 
 import { useState, useCallback, useRef, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { TrainingHeader } from "@/components/training-header"
 import { WordDisplay } from "@/components/word-display"
 import { TrainingStatsDisplay } from "@/components/training-stats"
 import { AnswerInput } from "@/components/answer-input"
 import { ActionButtons } from "@/components/action-buttons"
 import { ArrowRightLeft } from "lucide-react"
-import { mockSeries } from "@/lib/data"
+import { getSeriesById, mockAllSeries } from "@/lib/data"
 import type { TrainingStats, TrainingResult } from "@/lib/data"
 
 function shuffleArray<T>(array: T[]): T[] {
@@ -22,9 +22,13 @@ function shuffleArray<T>(array: T[]): T[] {
 
 export function TrainingScreen() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const [words] = useState(() => shuffleArray(mockSeries.words))
+  const seriesId = Number(searchParams.get("series") ?? mockAllSeries[0].id)
+  const seriesData = getSeriesById(seriesId) ?? mockAllSeries[0]
+
+  const [words] = useState(() => shuffleArray(seriesData.words))
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answer, setAnswer] = useState("")
   const [result, setResult] = useState<TrainingResult>(null)
@@ -86,8 +90,8 @@ export function TrainingScreen() {
   }, [moveToNext])
 
   const handleBack = useCallback(() => {
-    router.push("/")
-  }, [router])
+    router.push(`/series/${seriesId}`)
+  }, [router, seriesId])
 
   const handleChangeSeries = useCallback(() => {
     router.push("/")
@@ -103,13 +107,16 @@ export function TrainingScreen() {
 
   if (isFinished) {
     const total = stats.correct + stats.incorrect + stats.skipped
-    const successRate = total > 0 ? Math.round((stats.correct / total) * 100) : 0
+    const successRate =
+      total > 0 ? Math.round((stats.correct / total) * 100) : 0
 
     return (
       <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-background shadow-[0_0_40px_rgba(0,0,0,0.06)]">
         <div className="flex flex-1 flex-col items-center justify-center gap-8 px-5">
           <div className="flex flex-col items-center gap-2">
-            <span className="text-6xl font-bold text-primary">{successRate}%</span>
+            <span className="text-6xl font-bold text-primary">
+              {successRate}%
+            </span>
             <h2 className="text-xl font-semibold text-foreground">
               Session terminee
             </h2>
@@ -155,7 +162,7 @@ export function TrainingScreen() {
               onClick={handleBack}
               className="flex w-full items-center justify-center gap-2.5 rounded-2xl border border-primary bg-background px-6 py-4 text-[15px] font-semibold tracking-wide text-primary transition-all hover:bg-secondary active:scale-[0.98]"
             >
-              Retour aux series
+              Retour a la serie
             </button>
           </div>
         </div>
@@ -204,7 +211,6 @@ export function TrainingScreen() {
         </div>
       </div>
 
-      {/* Bottom safe area for mobile */}
       <div className="h-6" />
     </div>
   )

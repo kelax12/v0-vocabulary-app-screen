@@ -9,6 +9,8 @@ export interface VocabWord {
 export interface VocabSeries {
   id: number
   name: string
+  sourceLanguage: string
+  targetLanguage: string
   isFavorite: boolean
   words: VocabWord[]
 }
@@ -37,6 +39,23 @@ export function getGlobalProgress(allSeries: VocabSeries[]): number {
   return Math.round((totalMastered / totalWords) * 100)
 }
 
+export const SUPPORTED_LANGUAGES = [
+  { code: "fr", label: "Francais" },
+  { code: "en", label: "Anglais" },
+  { code: "es", label: "Espagnol" },
+  { code: "de", label: "Allemand" },
+  { code: "it", label: "Italien" },
+  { code: "pt", label: "Portugais" },
+  { code: "nl", label: "Neerlandais" },
+  { code: "ja", label: "Japonais" },
+  { code: "zh", label: "Chinois" },
+  { code: "ar", label: "Arabe" },
+] as const
+
+export function getLanguageLabel(code: string): string {
+  return SUPPORTED_LANGUAGES.find((l) => l.code === code)?.label ?? code
+}
+
 export function getSeriesById(id: number): VocabSeries | undefined {
   return mockAllSeries.find((s) => s.id === id)
 }
@@ -45,6 +64,8 @@ export const mockAllSeries: VocabSeries[] = [
   {
     id: 1,
     name: "Les vetements",
+    sourceLanguage: "en",
+    targetLanguage: "fr",
     isFavorite: true,
     words: [
       { id: 1, source: "skirt", translation: "jupe", isFavorite: true, mastered: true },
@@ -64,6 +85,8 @@ export const mockAllSeries: VocabSeries[] = [
   {
     id: 2,
     name: "Les emotions",
+    sourceLanguage: "en",
+    targetLanguage: "fr",
     isFavorite: false,
     words: [
       { id: 13, source: "happy", translation: "heureux", isFavorite: true, mastered: true },
@@ -79,6 +102,8 @@ export const mockAllSeries: VocabSeries[] = [
   {
     id: 3,
     name: "La nourriture",
+    sourceLanguage: "en",
+    targetLanguage: "fr",
     isFavorite: true,
     words: [
       { id: 21, source: "bread", translation: "pain", isFavorite: true, mastered: true },
@@ -96,6 +121,8 @@ export const mockAllSeries: VocabSeries[] = [
   {
     id: 4,
     name: "Les animaux",
+    sourceLanguage: "en",
+    targetLanguage: "fr",
     isFavorite: false,
     words: [
       { id: 31, source: "dog", translation: "chien", isFavorite: true, mastered: true },
@@ -109,6 +136,8 @@ export const mockAllSeries: VocabSeries[] = [
   {
     id: 5,
     name: "Les couleurs",
+    sourceLanguage: "en",
+    targetLanguage: "fr",
     isFavorite: false,
     words: [
       { id: 37, source: "red", translation: "rouge", isFavorite: false, mastered: false },

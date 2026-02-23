@@ -47,9 +47,8 @@ export function MySeriesDashboard() {
   }, [])
 
   const handleAddSeries = useCallback(() => {
-    // Future: navigate to create series screen
-    console.log("Create new series")
-  }, [])
+    router.push("/create")
+  }, [router])
 
   return (
     <div className="relative mx-auto flex min-h-dvh max-w-md flex-col bg-background shadow-[0_0_40px_rgba(0,0,0,0.06)]">

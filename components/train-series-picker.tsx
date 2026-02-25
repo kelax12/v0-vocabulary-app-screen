@@ -2,8 +2,8 @@
 
 import { useState, useCallback, useMemo } from "react"
 import { useRouter } from "next/navigation"
-import { SearchBar } from "@/components/search-bar"
-import { GraduationCap, Play } from "lucide-react"
+import { SearchBar } from "@/features/dashboard/components/search-bar"
+import { Play } from "lucide-react"
 import { cn } from "@/lib/utils"
 import {
   mockAllSeries,
@@ -36,22 +36,23 @@ export function TrainSeriesPicker() {
     <div className="relative mx-auto flex min-h-dvh max-w-md flex-col bg-background shadow-[0_0_40px_rgba(0,0,0,0.06)]">
       {/* Header */}
       <div className="px-5 pt-14 pb-2">
-        <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10">
-            <GraduationCap className="h-[22px] w-[22px] text-primary" />
+        <h1 className="text-[28px] font-bold leading-tight tracking-tight text-foreground text-balance">
+            Entrainement
+          </h1>
+          <div className="mt-3 flex items-center gap-3">
+            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-secondary">
+              <div
+                className="h-full rounded-full bg-primary transition-all duration-700 ease-out"
+                style={{ width: `${globalProgress}%` }}
+              />
+            </div>
+            <span className="text-[13px] font-semibold tabular-nums text-primary">
+              {globalProgress}%
+            </span>
           </div>
-          <div className="flex-1">
-            <h1 className="text-[20px] font-bold leading-tight text-foreground text-balance">
-              Entrainement
-            </h1>
-            <p className="mt-0.5 text-[13px] font-medium text-muted-foreground">
-              Choisissez une serie
-            </p>
-          </div>
-          <span className="text-[13px] font-semibold tabular-nums text-primary">
-            {globalProgress}%
-          </span>
-        </div>
+          <p className="mt-1.5 text-[12px] font-medium text-muted-foreground">
+            Choisissez une serie
+          </p>
       </div>
 
       <SearchBar value={searchQuery} onChange={setSearchQuery} />

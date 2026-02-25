@@ -6,6 +6,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  allowedDevOrigins: ["*.orchids.cloud", "*.orchids.dev"],
 }
 
 export default nextConfig

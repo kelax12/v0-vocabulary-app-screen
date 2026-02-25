@@ -2,9 +2,9 @@
 
 import { useState, useCallback, useRef, useMemo } from "react"
 import { useRouter } from "next/navigation"
-import { ArrowLeft, Plus } from "lucide-react"
-import { LanguageSelector } from "@/components/language-selector"
-import { WordRow } from "@/components/word-row"
+import { Plus } from "lucide-react"
+import { LanguageSelector } from "@/core/ui/language-selector"
+import { WordRow } from "@/features/vocabulary/components/word-row"
 import { cn } from "@/lib/utils"
 
 interface WordEntry {
@@ -106,18 +106,11 @@ export function CreateSeriesScreen() {
     >
       {/* Header */}
       <div className="sticky top-0 z-20 bg-background">
-        <div className="flex items-center px-2 pt-12 pb-2">
-          <button
-            onClick={() => router.push("/")}
-            className="flex h-10 w-10 items-center justify-center rounded-xl transition-colors hover:bg-secondary active:scale-95"
-            aria-label="Retour"
-          >
-            <ArrowLeft className="h-5 w-5 text-foreground" />
-          </button>
-          <h1 className="flex-1 text-center text-[20px] font-bold tracking-tight text-foreground pr-10">
-            Creer une serie
-          </h1>
-        </div>
+        <div className="px-5 pt-14 pb-4">
+            <h1 className="text-[28px] font-bold leading-tight tracking-tight text-foreground text-balance">
+              Creer une serie
+            </h1>
+          </div>
       </div>
 
       <div className="flex flex-1 flex-col px-5 pb-28">
